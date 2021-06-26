@@ -179,9 +179,9 @@ namespace BlazingPizza.Server.Models
                 },
             };
 
+            context.Toppings.AddRange(Toppings);
 
             context.Specials.AddRange(Specials);
-            context.Toppings.AddRange(Toppings);
             context.SaveChanges();
 
         }

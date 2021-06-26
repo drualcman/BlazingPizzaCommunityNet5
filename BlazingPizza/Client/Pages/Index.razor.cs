@@ -21,6 +21,7 @@ namespace BlazingPizza.Client.Pages
 
         Pizza ConfiguringPizza;
         bool ShowingConfigureDialog;
+        Order Order = new();
         #endregion
 
         #region Overrides
@@ -41,6 +42,33 @@ namespace BlazingPizza.Client.Pages
                 Toppings = new()
             };
             ShowingConfigureDialog = true;
+        }
+        #endregion
+
+        #region manejadores de eventos
+        void CancelConfigurePizzaDialog()
+        {
+            ConfiguringPizza = null;
+            ShowingConfigureDialog = false;
+        }
+
+        void ConfirmConfigurePizzaDialog()
+        {
+            Order.Pizzas.Add(ConfiguringPizza);
+            ConfiguringPizza = null;
+            ShowingConfigureDialog = false;
+        }
+
+
+        void RemoveConfiguredPizza(Pizza pizza)
+        {
+            Order.Pizzas.Remove(pizza);
+        }
+
+        async Task PlaceOrder()
+        {
+            await HttpClient.PostAsJsonAsync("orders", Order);
+            Order = new Order();
         }
         #endregion
     }

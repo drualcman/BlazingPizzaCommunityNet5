@@ -10,24 +10,66 @@
                 <input type="range"
                        min="@Pizza.MinimumSize"
                        max="@Pizza.MaximumSize"
-                       step="@Pizza.IncrementSize" 
+                       step="@Pizza.IncrementSize"
                        @bind="Pizza.Size"
-                       @bind:event="oninput"
-                       />
+                       @bind:event="oninput" />
                 <span class="size-label">
                     @Pizza.Size cm ($@Pizza.GetFormattedBasePrice())
                 </span>
             </div>
+
+            <div>
+                <label>Complementos adicionales:</label>
+                @if (Toppings == null)
+                {
+                    <select class="custom-select" disabled>
+                        <option>(Cargando...)</option>
+                    </select>
+                }
+                else if (Pizza.Toppings.Count >= 6)
+                {
+                    <div>(máximo alcanzado)</div>
+                }
+                else
+                {
+                    <select class="custom-select" @onchange="@ToppingSelected">
+                        <option value="-1" disabled selected>(selecciona)</option>
+                        @for (var i = 0; i < Toppings.Count(); i++)
+                        {
+                            <option value="@i">
+                                @Toppings.ElementAt(i).Name - ($@(Toppings.ElementAt(i).GetFormattedPrice()))
+                            </option>
+                        }
+                    </select>
+                }
+            </div>
+
+            <div class="toppings">
+                @foreach (var topping in Pizza.Toppings)
+                {
+                    <div class="topping">
+                        @topping.Topping.Name
+                        <span class="topping-price">
+                            @topping.Topping.GetFormattedPrice()
+                        </span>
+                        <button type="button" class="delete-topping"
+                                @onclick="@(() => RemoveTopping(topping.Topping))">
+                            x
+                        </button>
+                    </div>
+                }
+            </div>
+
         </form>
         <div class="dialog-buttons">
-            <button class="btn btn-secondary mr-auto">Cancelar</button>
+            <button class="btn btn-secondary mr-auto" @onclick="OnCancel">Cancelar</button>
             <span class="mr-center">
                 Precio:
                 <span class="price">
                     @Pizza.GetFormattedTotalPrice()
                 </span>
             </span>
-            <button class="btn btn-success ml-auto">Ordernar ></button>
+            <button class="btn btn-success ml-auto" @onclick="OnConfirm">Ordernar ></button>
         </div>
     </div>
 </div>
