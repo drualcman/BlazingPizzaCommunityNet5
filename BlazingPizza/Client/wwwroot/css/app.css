@@ -571,3 +571,20 @@ input[type=range] {
         border-radius: 20px;
         padding: 0.4rem 1.2rem;
     }
+
+.orders-list .list-group-item {
+    display: flex;
+}
+
+.orders-list .col {
+    margin: auto;
+}
+
+.orders-list h5 {
+    color: #c03939;
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin: 0.2rem 0 0 0;
+    font-family: 'Bahnschrift', Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
