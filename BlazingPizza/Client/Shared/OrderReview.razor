@@ -1,0 +1,13 @@
+﻿@foreach (Pizza pizza in Order.Pizzas)
+{
+    <p>
+        <strong>@pizza.Size cm @pizza.Special.Name ($@pizza.GetFormattedTotalPrice())</strong>
+    </p>
+    <ul>
+        @foreach (PizzaTopping topping in pizza.Toppings)
+        {
+            <li>+ @topping.Topping.Name</li>
+        }
+    </ul>
+}
+<p><strong>Precio total: $@Order.GetFormattedTotalPrice()</strong></p>

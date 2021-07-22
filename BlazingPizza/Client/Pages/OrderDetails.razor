@@ -1,8 +1,27 @@
-﻿@page "/myorders/{orderId:int}" 
+﻿@page "/myorders/{orderId:int}"
 
 <div class="main">
-    Mostrar el detalle de la orden @OrderId 
-    
-    
-    @OrderWithStatus?.StatusText
+    @if (InvalidOrder)
+    {
+        <h2>NO!</h2>
+        <p>Lo sentimos esta orden no puede ser cargada.</p>
+    }
+    else if (OrderWithStatus == null)
+    {
+        <div class="loading-bar"></div>
+    }
+    else
+    {
+        <div class="track-order">
+            <div class="track-order-title">
+                <h2>Pedido realizado @OrderWithStatus.Order.CreatedTime.ToLongDateString()</h2>
+                <p class="ml-auto mb-0">Estatur: <strong>@OrderWithStatus.StatusText</strong></p>
+            </div>
+            <div class="track-order-body">
+                <div class="track-order-details">
+                    <OrderReview Order="OrderWithStatus.Order" />
+                </div>
+            </div>
+        </div>
+    }
 </div>

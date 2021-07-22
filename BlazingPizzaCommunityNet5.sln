@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingPizza.Client", "Blaz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingPizza.Shared", "BlazingPizza\Shared\BlazingPizza.Shared.csproj", "{34D28122-6833-4140-993A-5F62912DE038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingPizza.ComponentsLibrary", "BlazingPizza.ComponentsLibrary\BlazingPizza.ComponentsLibrary.csproj", "{0ED6A0E4-81FF-4A0B-8F8A-74F0736B7F0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingPizza.ComponentsLibrary", "BlazingPizza.ComponentsLibrary\BlazingPizza.ComponentsLibrary.csproj", "{0ED6A0E4-81FF-4A0B-8F8A-74F0736B7F0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

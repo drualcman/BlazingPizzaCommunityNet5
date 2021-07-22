@@ -13,7 +13,10 @@ namespace BlazingPizza.Client.Pages
     {
         #region Servivcios
         [Inject]
-        HttpClient HttpClient { get; set; }
+        public HttpClient HttpClient { get; set; }
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
         #endregion
 
         #region Variables
@@ -67,8 +70,10 @@ namespace BlazingPizza.Client.Pages
 
         async Task PlaceOrder()
         {
-            await HttpClient.PostAsJsonAsync("orders", Order);
+            HttpResponseMessage response = await HttpClient.PostAsJsonAsync("orders", Order);
+            int NewOrderID = await response.Content.ReadFromJsonAsync<int>();
             Order = new Order();
+            NavigationManager.NavigateTo($"myorders/{NewOrderID}");
         }
         #endregion
     }
