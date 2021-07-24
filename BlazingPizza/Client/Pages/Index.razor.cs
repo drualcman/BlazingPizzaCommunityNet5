@@ -34,14 +34,5 @@ namespace BlazingPizza.Client.Pages
         }
         #endregion
 
-        #region manejadores de eventos
-        async Task PlaceOrder()
-        {
-            HttpResponseMessage response = await HttpClient.PostAsJsonAsync("orders", OrderState.Order);
-            int NewOrderID = await response.Content.ReadFromJsonAsync<int>();
-            OrderState.ResetOrder();
-            NavigationManager.NavigateTo($"myorders/{NewOrderID}");
-        }
-        #endregion
     }
 }
