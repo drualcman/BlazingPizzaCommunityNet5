@@ -1,14 +1,22 @@
 ﻿@page "/checkout" 
 
 <div class="main">
-    <div class="checkout-cols">
-        <div>
-            <h4>Revisar la orden</h4>
-            <OrderReview Order="OrderState.Order" />
+    <EditForm Model="OrderState.Order.DeliveryAddress" OnValidSubmit="PlaceOrder">
+        <div class="checkout-cols">
+            <div>
+                <h4>Revisar la orden</h4>
+                <OrderReview Order="OrderState.Order" />
+            </div>
+            <div>
+                <h4>Enviar a...</h4>
+                <AddressEditor Address="@OrderState.Order.DeliveryAddress" />
+            </div>
         </div>
-    </div>
 
-    <button class="checkout-button btn btn-warning" @onclick="PlaceOrder">
-        Aceptar la orden
-    </button>
+        <button class="checkout-button btn btn-warning" disabled="@Clicked">
+            Aceptar la orden
+        </button>
+
+        <DataAnnotationsValidator/>
+    </EditForm>
 </div>

@@ -660,3 +660,31 @@ input[type=range] {
     padding: 0.4rem 1.2rem;
 }
 
+.form-field {
+    display: flex;
+    margin: 0.5rem;
+}
+
+    .form-field > label {
+        width: 8rem;
+    }
+
+    .form-field > div {
+        flex-grow: 1;
+    }
+
+    .form-field input {
+        width: 100%;
+    }
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}

@@ -20,14 +20,19 @@ namespace BlazingPizza.Client.Pages
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-
-        #region manejadores de eventos
+        bool Clicked;
+        #region manejador de eventos
         async Task PlaceOrder()
         {
-            HttpResponseMessage response = await HttpClient.PostAsJsonAsync("orders", OrderState.Order);
-            int NewOrderID = await response.Content.ReadFromJsonAsync<int>();
-            OrderState.ResetOrder();
-            NavigationManager.NavigateTo($"myorders/{NewOrderID}");
+            if (!Clicked)
+            {
+                Clicked = true;
+                HttpResponseMessage response = await HttpClient.PostAsJsonAsync("orders", OrderState.Order);
+                int NewOrderID = await response.Content.ReadFromJsonAsync<int>();
+                OrderState.ResetOrder();
+                Clicked = false;
+                NavigationManager.NavigateTo($"myorders/{NewOrderID}");                
+            }
         }
         #endregion
     }
