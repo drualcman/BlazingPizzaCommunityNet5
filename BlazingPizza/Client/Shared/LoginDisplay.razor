@@ -1,0 +1,31 @@
+﻿@inject NavigationManager Navigation
+@inject SignOutSessionStateManager SignOutManager
+
+<div class="user-info">
+    <AuthorizeView>
+        <Authorizing>
+            ...
+        </Authorizing>
+        <Authorized>
+            <img src="images/user.svg" alt="user" />
+            <div>
+                <a href="authentication/profile" class="username">@context.User.Identity.Name</a>
+                <button class="btn btn-link sign-out" type="button" @onclick="BeginSignOut">
+                    Cerrar session
+                </button>
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            <a href="authentication/register" class="sign-in">Registrar</a>
+            <a href="authentication/login" class="sign-in">Iniciar sesion</a>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+@code {
+    async Task BeginSignOut()
+    {
+        await SignOutManager.SetSignOutState();
+        Navigation.NavigateTo("authentication/logout");
+    }
+}
