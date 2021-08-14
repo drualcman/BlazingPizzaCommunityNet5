@@ -25,6 +25,15 @@ namespace BlazingPizza.Client.Services
             };
             ShowingConfigureDialog = true;
         }
+
+        /// <summary>
+        /// Recive la ordern guardada en el estado al cambiar de pagina paraauthenticar al usuario
+        /// </summary>
+        /// <param name="order"></param>
+        public void ReplaceOrder(Order order)
+		{
+            Order = order;
+		}
         #endregion
 
         #region manejadores de eventos
