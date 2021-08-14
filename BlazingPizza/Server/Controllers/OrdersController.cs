@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BlazingPizza.Server.Controllers
@@ -19,6 +20,11 @@ namespace BlazingPizza.Server.Controllers
         private readonly PizzaStoreContext Context;
         public OrdersController(PizzaStoreContext context) =>
             this.Context = context;
+
+        private string GetUserId()
+        {
+            return HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
 
         [HttpPost]
         public async Task<ActionResult<int>> PlaceOrder(Order order)
@@ -41,7 +47,7 @@ namespace BlazingPizza.Server.Controllers
                     topping.Topping = null;
                 }
             }
-
+            order.UserId = GetUserId();
             Context.Orders.Attach(order);
             await Context.SaveChangesAsync();
 
@@ -52,6 +58,7 @@ namespace BlazingPizza.Server.Controllers
         public async Task<ActionResult<List<OrderWithStatus>>> GetOrders()
         {
             var Orders = await Context.Orders
+                .Where(u => u.UserId == GetUserId())
                 .Include(o => o.DeliveryLocation)
                 .Include(o => o.Pizzas).ThenInclude(p => p.Special)
                 .Include(o => o.Pizzas).ThenInclude(p => p.Toppings)
@@ -68,6 +75,7 @@ namespace BlazingPizza.Server.Controllers
 
             var Order = await Context.Orders
                 .Where(o => o.OrderId == orderId)
+                .Where(u => u.UserId == GetUserId())
                 .Include(o => o.DeliveryLocation)
                 .Include(o => o.Pizzas).ThenInclude(p => p.Special)
                 .Include(o => o.Pizzas).ThenInclude(p => p.Toppings)

@@ -1,5 +1,6 @@
 ﻿using BlazingPizza.Client.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace BlazingPizza.Client.Pages
         public NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        public HttpClient HttpClient { get; set; }
+        public OrdersClient OrdersClient { get; set; }
 
         bool Clicked;
         #region manejador de eventos
@@ -27,11 +28,20 @@ namespace BlazingPizza.Client.Pages
             if (!Clicked)
             {
                 Clicked = true;
-                HttpResponseMessage response = await HttpClient.PostAsJsonAsync("orders", OrderState.Order);
-                int NewOrderID = await response.Content.ReadFromJsonAsync<int>();
-                OrderState.ResetOrder();
-                Clicked = false;
-                NavigationManager.NavigateTo($"myorders/{NewOrderID}");                
+                try
+                {
+                    int NewOrderID = await OrdersClient.PlaceOrder(OrderState.Order);
+                    OrderState.ResetOrder();
+                    NavigationManager.NavigateTo($"myorders/{NewOrderID}");
+                }
+                catch (AccessTokenNotAvailableException ex)
+                {
+                    ex.Redirect();
+                }
+                finally
+                {
+                    Clicked = false;
+                }
             }
         }
         #endregion

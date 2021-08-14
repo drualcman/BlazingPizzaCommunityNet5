@@ -1,5 +1,7 @@
-﻿using BlazingPizza.Shared;
+﻿using BlazingPizza.Client.Services;
+using BlazingPizza.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace BlazingPizza.Client.Pages
     public partial class OrderDetails : IDisposable
     {
         [Inject]
-        public HttpClient HttpClient { get; set; }
+        public OrdersClient OrdersClient { get; set; }
 
         [Parameter]
         public int OrderId { get; set; }
@@ -31,7 +33,7 @@ namespace BlazingPizza.Client.Pages
                 try
                 {
                     InvalidOrder = false;
-                    OrderWithStatus = await HttpClient.GetFromJsonAsync<OrderWithStatus>($"orders/{OrderId}");
+                    OrderWithStatus = await OrdersClient.GetOrder(OrderId);
                     StateHasChanged();
                     if (OrderWithStatus.IsDelivered)
                     {
@@ -41,6 +43,11 @@ namespace BlazingPizza.Client.Pages
                     {
                         await Task.Delay(4000);
                     }
+                }
+                catch (AccessTokenNotAvailableException ex)
+                {
+                    PollingCancellatioinToken?.Cancel();
+                    ex.Redirect();
                 }
                 catch (Exception ex)
                 {
