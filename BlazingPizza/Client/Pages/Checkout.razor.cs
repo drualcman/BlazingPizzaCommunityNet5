@@ -1,4 +1,5 @@
 ﻿using BlazingPizza.Client.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace BlazingPizza.Client.Pages
 {
+    [Authorize]
     public partial class Checkout
     {
         [Inject]
