@@ -23,7 +23,10 @@ namespace BlazingPizza.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddScoped<OrderState>();
-            builder.Services.AddApiAuthorization<PizzaAuthenticationState>();
+            builder.Services.AddApiAuthorization<PizzaAuthenticationState>(options =>
+            {
+                options.AuthenticationPaths.LogOutSucceededPath = "";
+            });
 
             // inyectamos el token ayudandonos del nugget the AspNet.Core.Identity
             builder.Services.AddHttpClient<OrdersClient>(httpClient => httpClient.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))

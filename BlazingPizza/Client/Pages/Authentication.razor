@@ -3,7 +3,29 @@
 <RemoteAuthenticatorViewCore Action="@Action" 
                          TAuthenticationState="PizzaAuthenticationState"
                          AuthenticationState="RemoteAuthenticationState" 
-                         OnLogInSucceeded="RestorePizza" />
+                         OnLogInSucceeded="RestorePizza" >
+    <LoggingIn>
+        <div class="main">
+            Direigiendo a la pagina de inicio de sesion...
+		</div>
+	</LoggingIn>
+    <CompletingLoggingIn>        
+        <div class="main">
+            Completando el inicio de sesion...
+		</div>
+	</CompletingLoggingIn>
+    <LogOut>
+        <div class="main">
+            Cerrando session...
+		</div>
+	</LogOut>
+    <LogOutSucceeded>
+        <div class="main">
+            La sesion ha finalizado
+		</div>
+	</LogOutSucceeded>
+
+</RemoteAuthenticatorViewCore>
 
 @code{
     [Parameter]
