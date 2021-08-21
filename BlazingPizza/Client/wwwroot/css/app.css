@@ -628,6 +628,11 @@ input[type=range] {
     flex-grow: 1;
 }
 
+.track-order-map{
+    width: 50%;
+    flex-shrink: 0;
+}
+
 .checkout-cols {
     display: flex;
 }
@@ -741,3 +746,4 @@ a.sign-in {
     font-size: 0.8rem;
     padding: 0;
 }
+

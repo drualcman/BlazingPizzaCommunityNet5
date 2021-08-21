@@ -22,17 +22,17 @@ namespace BlazingPizza.Shared
         public Order Order { get; set; }
         public string StatusText { get; set; }
         public bool IsDelivered => StatusText == Delivered;
-        public List<Markerasdadsad> MapMarkers { get; set; }
+        public List<Marker> MapMarkers { get; set; }
         public static OrderWithStatus FromOrder(Order order)
         {
             string Message;
-            List<Markerasdadsad> Markers;
+            List<Marker> Markers;
             var DispatchTime = order.CreatedTime.Add(PreparationDuration);
 
             if (DateTime.Now < DispatchTime)
             {
                 Message = Preparing;
-                Markers = new List<Markerasdadsad>
+                Markers = new List<Marker>
                 {
                     ToMapMarker("Usted",
                     order.DeliveryLocation, showPopup: true)
@@ -51,7 +51,7 @@ namespace BlazingPizza.Shared
                     StartPosition,
                     order.DeliveryLocation,
                     ProportionOfDeliveryCompleted);
-                Markers = new List<Markerasdadsad>
+                Markers = new List<Marker>
                 {
                     ToMapMarker("Usted", order.DeliveryLocation),
                     ToMapMarker("Repartidor", DriverPosition, showPopup: true),
@@ -60,7 +60,7 @@ namespace BlazingPizza.Shared
             else
             {
                 Message = Delivered;
-                Markers = new List<Markerasdadsad>
+                Markers = new List<Marker>
                 {
                     ToMapMarker("Ubicación de entrega",
                     order.DeliveryLocation, showPopup: true),
@@ -88,9 +88,9 @@ namespace BlazingPizza.Shared
                 order.DeliveryLocation.Longitude + Offset.Item2);
         }
 
-        static Markerasdadsad ToMapMarker(string description,
+        static Marker ToMapMarker(string description,
             LatLong coords, bool showPopup = false)
-            => new Markerasdadsad
+            => new Marker
             {
                 Description = description,
                 X = coords.Longitude,
