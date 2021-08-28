@@ -1,6 +1,7 @@
 ﻿using BlazingPizza.Client.Services;
 using BlazingPizza.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,9 @@ namespace BlazingPizza.Client.Pages
 
         [Inject]
         public OrderState OrderState { get; set; }
+
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
         #endregion
 
         #region Variables
@@ -33,6 +37,14 @@ namespace BlazingPizza.Client.Pages
             Specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>("specials");
         }
         #endregion
+
+        async Task RemovePizza(Pizza configurePizza)
+        {
+            if (await JSRuntime.Confirm($"Eliminar la pizza {configurePizza.Special.Name} de la ordern?"))
+            {
+                OrderState.RemoveConfiguredPizza(configurePizza);
+            }
+        }
 
     }
 }

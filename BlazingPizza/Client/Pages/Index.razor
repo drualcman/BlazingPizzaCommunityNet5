@@ -30,7 +30,7 @@
             @foreach (var ConfiguredPizza in OrderState.Order.Pizzas)
             {
                 <ConfiguredPizzaItem Pizza="ConfiguredPizza"
-                                     OnRemoved="@(() => OrderState.RemoveConfiguredPizza(ConfiguredPizza))" />
+                                     OnRemoved="@(() => RemovePizza(ConfiguredPizza))" />
             }
         </div>
     }
@@ -49,9 +49,8 @@
 </div>
 
 
-@if (OrderState.ShowingConfigureDialog)
-{
+<TemplatedDialog Show="OrderState.ShowingConfigureDialog" >
     <ConfigurePizzaDialog Pizza="OrderState.ConfiguringPizza"
                           OnCancel="OrderState.CancelConfigurePizzaDialog"
                           OnConfirm="OrderState.ConfirmConfigurePizzaDialog" />
-}
+</TemplatedDialog>
