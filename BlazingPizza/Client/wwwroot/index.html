@@ -9,6 +9,7 @@
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
     <link href="_content/BlazingPizza.ComponentsLibrary/leaflet/leaflet.css" rel="stylesheet" />
 </head>
 
@@ -26,6 +27,9 @@
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
     <script src="_content/BlazingPizza.ComponentsLibrary/leaflet/leaflet.js"></script>
     <script src="_content/BlazingPizza.ComponentsLibrary/deliveryMap.js"></script>
+    <script>
+        navigator.serviceWorker.register('service-worker.js');
+    </script>
 </body>
 
 </html>

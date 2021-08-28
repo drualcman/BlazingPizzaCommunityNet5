@@ -1,0 +1,15 @@
+{
+  "short_name": "Blazing Pizza",
+  "name": "Blazing Pizza",
+  "icons": [
+    {
+      "src": "images/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#860000",
+  "display": "/",
+  "theme_color": "#860000"
+}
