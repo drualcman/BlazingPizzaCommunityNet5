@@ -28,7 +28,8 @@ namespace BlazingPizza.Server
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDbContext<PizzaStoreContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("PizzaStore"))
+                //options.UseSqlServer(Configuration.GetConnectionString("PizzaStore"))
+                options.UseSqlite(Configuration.GetConnectionString("PizzaStore"))
             );
 
             //authentication
